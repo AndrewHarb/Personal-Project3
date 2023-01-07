@@ -1,12 +1,21 @@
 def add_time(start, duration, weekday = None):
-  hours = int(duration.split(":")[0])
-  mins = int(duration.split(":")[1])
   
-  new_hour = (start.split()[0]).split(":")[0]
+  hours = duration.split(":")[0]
+  hours = int(hours)
+  
+  mins = duration.split(":")[1]
+  mins = int(mins)
+  
+  new_hour = start.split()[0]
+  new_hour = new_hour.split(":")[0]
   new_hour = int(new_hour) + hours
-  new_mins = (start.split()[0]).split(":")[1]
+  
+  new_mins = start.split()[0]
+  new_mins = new_mins.split(":")[1]
   new_mins = int(new_mins) + mins
+  
   day = start.split()[1]
+  
   
   if new_mins >= 60:
     new_hour = new_hour + new_mins // 60
@@ -16,7 +25,7 @@ def add_time(start, duration, weekday = None):
   
   if (new_hour // 12) % 2 != 0:
     if day == "PM":
-      n_days += 1
+      n_days = n_days + 1
     if day == "AM":
       day = "PM"  
     else:
@@ -34,17 +43,17 @@ def add_time(start, duration, weekday = None):
   
   new_time = str(new_hour) + ":" + new_mins_str + " " + day
 
-  week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   if weekday != None:
-    weekday = weekday.title()
+    weekday = weekday.capitalize()
     new_day = (week.index(weekday) + n_days) % 7
-    new_time += ", " + week[new_day]
+    new_time = new_time + ", " + week[new_day]
 
   if n_days == 1:
-     new_time += " (next day)"
-  elif n_days > 1:
-    new_time += " (" + str(n_days) + " days later)"
+     new_time = new_time + " (next day)"
+  if n_days > 1:
+    new_time = new_time + " (" + str(n_days) + " days later)"
   
   return new_time
   
